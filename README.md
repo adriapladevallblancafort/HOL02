@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-1. [INTRODUCTION](#introduction)	
-2. [CREATION OF KEY PAIRS](#creation-of-key-pairs)	
+1. [1) INTRODUCTION](#introduction)	
+2. [2) CREATION OF KEY PAIRS](#creation-of-key-pairs)	
 3. [CREATION OF A VPC](#creation-of-a-vpc)	
 4. [SUBNETS](#subnets)
 5. [INTERNET GATEWAY](#internet-gateway)
@@ -87,10 +87,13 @@ To actualize the creation of these subnets:
 Through these meticulously executed steps, we ensure the creation of a robust network infrastructure, fortified by carefully crafted subnets, each serving a distinct purpose in safeguarding our data and facilitating efficient operations within the AWS environment.
 
 <img width="255" alt="Picture 5" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/3e17991a-12b9-4885-ac44-5731343f57e1">
+
 ##### Figure 5. HOL02-DMZ subnet creation.
 <img width="255" alt="Picture 6" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/43a13050-aee9-486f-a2b9-edcf7fdb6f10">
+
 ##### Figure 6. HOL02-Production subnet creation.
 <img width="255" alt="Picture 7" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/cc9d95e0-9dc5-4526-b9eb-b44e7bcf75aa">
+
 ##### Figure 7. HOL02-Research subnet creation.
 
 
@@ -98,6 +101,7 @@ Through these meticulously executed steps, we ensure the creation of a robust ne
 
 As we move forward in setting up our network, an important part we add is the Internet Gateway. This is like a bridge that helps our EC2 instances connect to the internet. By setting up the Internet Gateway, we're making sure that our instances can easily communicate with external services and access online resources.
 <img width="241" alt="Picture 8" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/2a53b99b-8a9e-448b-bca5-844fde9cb9f1">
+
 ##### Figure 8. Creation of internet gateway.
 
 We connect the Internet Gateway (HOL02-IGW) to the VPC that we established earlier. By attaching the Internet Gateway to our VPC, we enable our VPC to serve as a gateway for outbound and inbound internet traffic. This means that any data leaving our VPC destined for the internet, or incoming from the internet into our VPC, can now flow through the Internet Gateway seamlessly.
@@ -117,25 +121,32 @@ We create three routing tables, each associated with its respective subnet:
 These routing tables ensure efficient traffic management within each subnet and enable connectivity to external destinations, including the internet.
 
 <img width="342" alt="Picture 10" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/5f96fc52-86c1-425f-92a7-fb6ae0e575c6">
+
 ##### Figure 10. DMZ routing table creation
 
 To complete the setup, we must associate each routing table with its corresponding subnet. We navigate to subnet associations and select the appropriate subnet for each routing table to establish the connection.
 
 <img width="476" alt="Picture 11" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/a9de6fea-d1a8-493c-b367-a229b4b1f3e7">
+
 ##### Figure 11. Subnet associated to the corresponding routing table.
 
 We repeat the process for the routing table for production:
 <img width="296" alt="Picture 12" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/50858216-2473-4d29-8d98-1d10b679b198">
+
 ##### Figure 12. Production routing table creation
 
 <img width="452" alt="Picture 13" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/a41b0e81-7ec5-42f3-898f-e362c1b5af88">
+
 ##### Figure 13. Subnet associated to the corresponding routing table.
 
 <img width="487" alt="Picture 14" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/58a5b6e2-aa30-4610-806d-378c45809078">
+
 ##### Figure 14. Production routing table associated to the internet.
 
 <img width="357" alt="Picture 15" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/f8cb9ed6-0989-495c-800a-48fcd6330fa5">
+
 ##### Figure 15. Research routing table created.
 
 <img width="452" alt="Picture 16" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/23a4a266-4b02-45c1-addf-5cd7178929e6">
+
 ##### Figure 16. Resource map obtained
