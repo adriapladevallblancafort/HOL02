@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [ INTRODUCTION](#introduction)	
-2. [ CREATION OF KEY PAIRS](#creation-of-key-pairs)	
-3. [ CREATION OF A VPC](#creation-of-a-vpc)	
-4. [ SUBNETS](#subnets)
-5. [ INTERNET GATEWAY](#internet-gateway)
-6. [ ROUTE TABLES](#route-tables)
-7. [ EC2 INSTANCES](#ec2-instances)
-8. [ S3 BUCKET](#s3-bucket)
-9. [ OPENVPN](#openvpn)
-10. [ NGINX CONFIGURATION](#nginx-configuration)
-11. [ JUPYTER NOTEBOOK](#jupyter-notebook)
-12. [ AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
+1. [INTRODUCTION](#introduction)
+2. [CREATION OF KEY PAIRS](#creation-of-key-pairs)
+3. [CREATION OF A VPC](#creation-of-a-vpc)
+4. [SUBNETS](#subnets)
+5. [INTERNET GATEWAY](#internet-gateway)
+6. [ROUTE TABLES](#route-tables)
+7. [EC2 INSTANCES](#ec2-instances)
+8. [S3 BUCKET](#s3-bucket)
+9. [OPENVPN](#openvpn)
+10. [NGINX CONFIGURATION](#nginx-configuration)
+11. [JUPYTER NOTEBOOK](#jupyter-notebook)
+12. [AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
 
 
 
@@ -289,14 +289,14 @@ By following these steps, the OpenVPN server is configured and ready for use, al
 
 ### Terminal Output:
 
-Access Server 2.13.1 has been successfully installed in /usr/local/openvpn_as
-Configuration log file has been written to /usr/local/openvpn_as/init.log.
+`Access Server 2.13.1 has been successfully installed in /usr/local/openvpn_as
+Configuration log file has been written to /usr/local/openvpn_as/init.log.`
 
-Access Server Web UIs are available here:
+`Access Server Web UIs are available here:
 Admin UI: https://10.0.1.209:943/admin
 Client UI: https://10.0.1.209:943/
 To login please use the "openvpn" account with "O9elW3egjmw3" password.
-(password can be changed on Admin UI)
+(password can be changed on Admin UI)`
 
 <img width="452" alt="Picture 35" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/242dd727-8b15-4a26-a813-5935df265931">
 
@@ -395,9 +395,9 @@ We need to connect the instance to the internet gateway to update the machine to
 
 So, to set up and run a jupyter notebook on the HOL02-Jupyter instance, we create a python virtual environment named jupyter-env. This environment ensures isolation and facilitates the installation of jupyter notebook with its dependencies. Then the virtual environment is activated to initiate the jupyter notebook server.
 
-[root@ip-10-0-3-135 ec2-user]# python3 -m venv jupyter-env
+`[root@ip-10-0-3-135 ec2-user]# python3 -m venv jupyter-env
 [root@ip-10-0-3-135 ec2-user]# source jupyter-env/bin/activate
-(jupyter-env) [root@ip-10-0-3-135 ec2-user]#
+(jupyter-env) [root@ip-10-0-3-135 ec2-user]#`
 
 During the execution process, a warning message appeared to me on several occasions: "Running as root is not recommended." This warning highlights the potential security risks associated with running services as the root user. To address this concern, several mitigation strategies are proposed. Firstly, creating a dedicated non-root user specifically for running Jupyter Notebook can enhance security by reducing the privileges associated with the service. Alternatively, utilizing the --allow-root flag with the jupyter notebook command bypasses the warning, although it's advised against unless the risks are fully understood.
 
@@ -407,19 +407,20 @@ During the execution process, a warning message appeared to me on several occasi
 
 Now we need to execute a jupyter notebook server within a virtual environment named ‘jupyter-env’. The process begins with the command to initiate the Jupyter Notebook server using the nohup command, which allows the process to continue running even after the terminal is closed. The --ip=0.0.0.0 flag specifies that the server should listen on all available network interfaces, and --notebook-dir=/home/ec2-user/notebooks sets the directory where notebooks are stored. The --no-browser flag indicates that the server should not attempt to open a web browser upon start up, and --allow-root permits running the server as the root user. The output is redirected to a log file located at /home/ec2-user/notebooks/jupyter.log. 
 
-(jupyter-env) [root@ip-10-0-3-135 notebooks]# nohup jupyter notebook --ip=0.0.0.0 --notebook-dir=/home/ec2-user/notebooks --no-browser --allow-root > /home/ec2-user/notebooks/jupyter.log 2>&1 &
-[1] 23009
+`(jupyter-env) [root@ip-10-0-3-135 notebooks]# nohup jupyter notebook --ip=0.0.0.0 --notebook-dir=/home/ec2-user/notebooks --no-browser --allow-root > /home/ec2-user/notebooks/jupyter.log 2>&1 &
+[1] 23009`
 
 If we look at the log display, we can observe the successful start-up of the Jupyter Notebook server, along with the loading of various extensions and components. It confirms the successful linking and loading of extensions such as jupyter_lsp, jupyter_server_terminals, and jupyterlab. Additionally, it provides information about the JupyterLab extension directory and manager.
 
 Further details include the local directory from which notebooks are served (/home/ec2-user/notebooks), the version of the Jupyter Server running, and the URLs at which the server can be accessed. Notably, the URLs include both the internal EC2 instance IP address (http://ip-10-0-3-135.ec2.internal:8888) and localhost (http://127.0.0.1:8888). So, when accessing the jupyter notebook via a web browser, it is important to use the private IP address. This private IP ensures secure communication within the internal network. The format is http:// followed by the private IP address of the EC2 instance and the port number: ‘8888’.
 
 The following output provides two methods for accessing the Jupyter Notebook server. The first method suggests opening a specific file in a web browser. The file path (file:///root/.local/share/jupyter/runtime/jpserver-23009-open.html) indicates the location of a local HTML file generated by the Jupyter server. Opening this file in a browser will likely trigger a redirect or provide a link to access the Jupyter server. Alternatively, the second method provides URLs that can be copied and pasted into a web browser's address bar. These URLs are links to the Jupyter server, each containing a token parameter (token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc). The token serves as a form of authentication to access the server securely.
+
 The first URL (http://ip-10-0-3-135.ec2.internal:8888/tree?token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc) points to the Jupyter server using the EC2 instance's internal IP address (ip-10-0-3-135.ec2.internal) and port 8888. This URL can be used to access the server from within the EC2 instance's network.
 The second URL (http://127.0.0.1:8888/tree?token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc) uses the loopback address (127.0.0.1) to access the Jupyter server from the local machine on which the server is running. 
 
 
-(jupyter-env) [root@ip-10-0-3-135 notebooks]# ls
+`(jupyter-env) [root@ip-10-0-3-135 notebooks]# ls
 Python-3.9.7  Python-3.9.7.tgz  data.csv  install.sh  jupyter.log  myscript.py  script.ipynb
 (jupyter-env) [root@ip-10-0-3-135 notebooks]# cat jupyter.log
 nohup: ignoring input
@@ -441,7 +442,7 @@ nohup: ignoring input
 [I 2024-04-01 17:38:32.086 ServerApp] http://ip-10-0-3-135.ec2.internal:8888/tree?token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc
 [I 2024-04-01 17:38:32.086 ServerApp]     http://127.0.0.1:8888/tree?token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc
 [I 2024-04-01 17:38:32.086 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2024-04-01 17:38:32.090 ServerApp] 
+[C 2024-04-01 17:38:32.090 ServerApp] `
     
     To access the server, open this file in a browser:
         file:///root/.local/share/jupyter/runtime/jpserver-23009-open.html
@@ -449,8 +450,8 @@ nohup: ignoring input
         http://ip-10-0-3-135.ec2.internal:8888/tree?token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc
         http://127.0.0.1:8888/tree?token=ffbec2ab9377e92a918cf63d946f4bb8999929847a1040bc
         
-[I 2024-04-01 17:38:32.113 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
-(jupyter-env) [root@ip-10-0-3-135 notebooks]#
+`[I 2024-04-01 17:38:32.113 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+(jupyter-env) [root@ip-10-0-3-135 notebooks]#`
 
 <img width="452" alt="Picture 49" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/e8cda550-1e08-413c-ae44-82ad4bdfe64d">
 
@@ -459,13 +460,13 @@ nohup: ignoring input
 Then, we need to set up AWS access key to connect the jupyter notebook with the bucket. With the aws configure command we set up AWS Access Key ID and Secret Access Key. Additionally, the aws configure set aws_session_token command is employed to configure the AWS session token for temporary security credentials. These credentials are essential for accessing AWS services securely from within the Jupyter Notebook environment.
 
 
-(jupyter-env) [root@ip-10-0-3-135 notebooks]# aws configure
+`(jupyter-env) [root@ip-10-0-3-135 notebooks]# aws configure
 AWS Access Key ID [****************2ZW5]: 
 AWS Secret Access Key [None]: 
 Default region name [None]: 
-Default output format [None]:
+Default output format [None]:`
 
-(jupyter-env) [root@ip-10-0-3-135 notebooks]# aws configure set aws_session_token FwoGZXIvYXdzEDEaDJNSePrdq6i2KJNu9SLMAV0OxJFubBXF6HYf+p6g22+Jam40HeUI6LF0y8TAE4UCX9FFnBf67XGCJyv8EqUuTCOnacFO43qqG9cH67n4EuPl9evhC20+Mt6lMJjbRink3AChJbInQjHTwE5x/h3WVhDzngs1qGGMvoYVTxE5pwQga+VNUObspEq8uVmoCzC7XC5XKFuzFC2tUWUXykDsP2nWJ946whsobq626xWLX2w+AR10FJEPaXVfR2E4+wIKUKWMIywsTgJFGkcndbOTU2dPd2xcWJE45E8YGSifsquwBjIt6GH8xpeSEcNIw+qsr2vMvOYjd1Hi7Bp60yEPtik8Dv7RkkVqb/24q2yaQLMG
+`(jupyter-env) [root@ip-10-0-3-135 notebooks]# aws configure set aws_session_token FwoGZXIvYXdzEDEaDJNSePrdq6i2KJNu9SLMAV0OxJFubBXF6HYf+p6g22+Jam40HeUI6LF0y8TAE4UCX9FFnBf67XGCJyv8EqUuTCOnacFO43qqG9cH67n4EuPl9evhC20+Mt6lMJjbRink3AChJbInQjHTwE5x/h3WVhDzngs1qGGMvoYVTxE5pwQga+VNUObspEq8uVmoCzC7XC5XKFuzFC2tUWUXykDsP2nWJ946whsobq626xWLX2w+AR10FJEPaXVfR2E4+wIKUKWMIywsTgJFGkcndbOTU2dPd2xcWJE45E8YGSifsquwBjIt6GH8xpeSEcNIw+qsr2vMvOYjd1Hi7Bp60yEPtik8Dv7RkkVqb/24q2yaQLMG`
 
 To configure Jupyter Notebook for direct synchronization with an S3 bucket, the %config magic command is utilized within a Jupyter Notebook cell. This configuration leverages the s3contents extension, enabling seamless integration between Jupyter Notebook and AWS S3 storage. Initially, it's essential to install the s3contents library if not already installed, which can be achieved using the !pip install s3contents command. Following this, the necessary modules are imported, including S3ContentsManager from s3contents.
 
@@ -508,7 +509,7 @@ Then, after creating the script, we make it executable with the command `chmod +
 After setting up the cron job, your EC2 instance will automatically synchronize the specified directory with the hol02-notebooks-adria S3 bucket every hour. You can adjust the schedule or the directory to sync as needed.
 
 
-[ec2-user@ip-10-0-2-161 ~]$ aws s3 cp s3://hol02-notebooks-adria/hol02-app.ipynb .
+`[ec2-user@ip-10-0-2-161 ~]$ aws s3 cp s3://hol02-notebooks-adria/hol02-app.ipynb .
 download: s3://hol02-notebooks-adria/hol02-app.ipynb to ./hol02-app.ipynb
 [ec2-user@ip-10-0-2-161 ~]$ ls
 hol02-app.ipynb  install.sh
@@ -527,8 +528,7 @@ hol02-app.ipynb  install.sh  sync_to_s3.sh
 crontab: installing new crontab
 [ec2-user@ip-10-0-2-161 ~]$ ls
 hol02-app.ipynb  install.sh  sync_to_s3.sh
-[ec2-user@ip-10-0-2-161 ~]$
-![image](https://github.com/adriapladevallblancafort/HOL02/assets/155838997/4d7f291b-f253-4e47-bcc3-766f7523999f)
+[ec2-user@ip-10-0-2-161 ~]$`
 
 
 
