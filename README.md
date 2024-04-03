@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-1. [1) INTRODUCTION](#introduction)	
-2. [2) CREATION OF KEY PAIRS](#creation-of-key-pairs)	
-3. [CREATION OF A VPC](#creation-of-a-vpc)	
-4. [SUBNETS](#subnets)
-5. [INTERNET GATEWAY](#internet-gateway)
-6. [ROUTE TABLES](#route-tables)
-7. [EC2 INSTANCES](#ec2-instances)
-8. [S3 BUCKET](#s3-bucket)
-9. [OPENVPN](#openvpn)
-10. [NGINX CONFIGURATION](#nginx-configuration)
-11. [JUPYTER NOTEBOOK](#jupyter-notebook)
-12. [AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
+1. [ INTRODUCTION](#introduction)	
+2. [ CREATION OF KEY PAIRS](#creation-of-key-pairs)	
+3. [ CREATION OF A VPC](#creation-of-a-vpc)	
+4. [ SUBNETS](#subnets)
+5. [ INTERNET GATEWAY](#internet-gateway)
+6. [ ROUTE TABLES](#route-tables)
+7. [ EC2 INSTANCES](#ec2-instances)
+8. [ S3 BUCKET](#s3-bucket)
+9. [ OPENVPN](#openvpn)
+10. [ NGINX CONFIGURATION](#nginx-configuration)
+11. [ JUPYTER NOTEBOOK](#jupyter-notebook)
+12. [ AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
 
 
 
@@ -131,6 +131,7 @@ To complete the setup, we must associate each routing table with its correspondi
 ##### Figure 11. Subnet associated to the corresponding routing table.
 
 We repeat the process for the routing table for production:
+
 <img width="296" alt="Picture 12" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/50858216-2473-4d29-8d98-1d10b679b198">
 
 ##### Figure 12. Production routing table creation
@@ -150,3 +151,86 @@ We repeat the process for the routing table for production:
 <img width="452" alt="Picture 16" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/23a4a266-4b02-45c1-addf-5cd7178929e6">
 
 ##### Figure 16. Resource map obtained
+
+## 7) EC2 INSTANCES
+Now, we proceed with the deployment of instances within our AWS environment. To initiate this process, we navigate to the AWS Management Console, where we will meticulously configure each instance:
+
+1. Naming and Image Selection:
+   - We begin by assigning a distinctive name to each instance and selecting the appropriate Amazon Machine Image (AMI) tailored to our requirements.
+   - For instance, we designate an EC2 instance named HOL02-VPN, intended for deployment in the HOL02-DMZ subnet. This instance utilizes the Ubuntu 22.04 LTS AMI, ensuring compatibility and reliability for our purposes.
+   - Similarly, we designate HOL02-VoilaServer for deployment in the HOL02-Production subnet, utilizing the Amazon Linux 2 AMI.
+   - Lastly, HOL02-Jupyter is designated for deployment in the HOL02-Research subnet, leveraging the Amazon Linux 2 AMI.
+
+2. Security Group Configuration:
+   - With the network and subnet selections finalized, we proceed to create a security group for each instance, incorporating specific port configurations to enforce access controls.
+   - For HOL02-DMZ-SG, utilized by instances within the DMZ subnet, ports 22 (SSH), 443 (HTTPS), 943 (TCP), 945 (TCP), and 1194 (UDP) are opened to facilitate necessary communication.
+   - HOL02-Production-SG, associated with instances in the Production subnet, permits inbound traffic on ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) restricted solely from HOL02-DMZ-SG, ensuring a controlled access pathway.
+   - Similarly, HOL02-Research-SG, deployed for instances in the Research subnet, allows inbound traffic on ports 22 (SSH) and 8888 (TCP) limited exclusively from HOL02-DMZ-SG, thereby reinforcing security measures tailored to research-related activities.
+
+In this AWS infrastructure setup, security is managed through Security Groups, which act as virtual firewalls controlling inbound and outbound traffic to EC2 instances. The HOL02-DMZ-SG is specifically designated for the DMZ subnet. This subnet typically hosts resources accessible from the internet but separated from the internal network. The security group allows inbound traffic on various ports including 22 (SSH), 443 (HTTPS), 943, 945 (TCP), and 1194 (UDP), ensuring necessary communication channels for services within the DMZ.
+
+For the Production subnet, the HOL02-Production-SG is employed. This security group is tailored for resources hosting public-facing services. It permits inbound traffic on ports 80 (HTTP), 443 (HTTPS), and 22 (SSH). However, SSH access is restricted to incoming connections only from HOL02-DMZ-SG, ensuring that SSH connections originate only from resources within the DMZ subnet, thus enhancing security.
+
+Similarly, the HOL02-Research-SG caters to resources within the Research subnet, possibly containing sensitive data or experimental setups. It allows inbound traffic on ports 22 (SSH) and 8888 (TCP), but access is restricted to connections originating from HOL02-DMZ-SG. This setup ensures that SSH and other services are accessible only from resources within the DMZ subnet, bolstering the overall security posture.
+
+Among the EC2 instances, HOL02-VPN plays a crucial role as a VPN gateway, residing in the DMZ subnet. It facilitates secure communication between different subnets within the VPC. Additionally, it is allocated with an Elastic IP, ensuring consistent external access despite instance restarts or changes in public IP addresses.
+
+On the other hand, HOL02-VoilaServer and HOL02-Jupyter represent instances in the Production and Research subnets, respectively. HOL02-VoilaServer likely hosts services accessible to the public internet, while HOL02-Jupyter may host resources or experiments requiring restricted access, both contributing to the overall functionality and security of the infrastructure.
+
+For HOL02 VPN:
+
+<img width="452" alt="Picture 17" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/e05f6d8b-a3e4-4e0c-bd67-45fae0ae9de5">
+
+##### Figure 17. HOL02 VPN instance creation
+
+<img width="452" alt="Picture 18" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/9d1ba546-3e15-4b1e-ab31-d956756d2871">
+
+##### Figure 18. HOL02 VPN instance creation
+
+<img width="452" alt="Picture 19" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/68c20d95-d1e1-4c5b-91d7-8d46020294fc">
+
+##### Figure 19. HOL02 VPN instance creation
+
+<img width="452" alt="Picture 20" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/814cd1d0-5449-4fd2-8a9e-a0d3ac8e3957">
+
+##### Figure 20. HOL02 VPN instance creation
+
+An Elastic IP address is a static IPv4 address that can be attached to an instance in your AWS environment. It provides a persistent public IP address that remains fixed even if the associated instance is stopped and restarted. Currently, our instance is assigned a public IP address (e.g., 44.204.119.113), but it doesn't have an Elastic IP address assigned to it. This means that if the instance is stopped and started again, the public IP address may change, requiring us to update our configurations to reflect the new address.
+
+To solve this issue, we allocate an Elastic IP address from the AWS Elastic IP pool. Once allocated, we associate this Elastic IP address with the specific resource we want to assign it to. In this case, we choose to associate the Elastic IP address with the instance named HOL02-VPN.
+
+<img width="319" alt="Picture 21" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/5fc0cf09-afce-4703-af4f-179f014c90e7">
+
+##### Figure 21. Elastic IP address allocation
+
+<img width="307" alt="Picture 22" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/eef7c926-998f-49a0-804d-be8259847b9c">
+
+##### Figure 22. Elastic IP address association
+
+For HOL02 Voila server:
+
+<img width="452" alt="Picture 23" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/207b57e2-ac77-4cad-b6e4-61d4cd916396">
+
+##### Figure 23. HOL02 Voila instance creation
+
+<img width="452" alt="Picture 24" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/670e18ab-da0d-4f6a-ba62-d2fbe2f47358">
+
+##### Figure 24. HOL02 Voila instance creation
+
+<img width="452" alt="Picture 25" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/13952f1b-16c8-40e9-84a5-6eae8e5824e3">
+
+##### Figure 25. HOL02 Voila instance creation
+
+For HOL02 Research:
+
+<img width="452" alt="Picture 26" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/7f74f5ec-6b2c-4988-9200-ebe430142b5a">
+
+##### Figure 26. HOL02 research instance creation
+
+<img width="452" alt="Picture 27" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/5e287bcf-26db-4cfe-89cd-cbb4d0c575fb">
+
+##### Figure 27. HOL02 research instance creation
+
+<img width="452" alt="Picture 28" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/fcef7df8-1cc4-4d18-94fb-47b4a40eddc3">
+
+##### Figure 28. HOL02 research instance creation
