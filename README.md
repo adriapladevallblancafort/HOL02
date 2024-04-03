@@ -273,8 +273,6 @@ Overall, these commands ensure that the necessary dependencies are installed, an
 
 ##### Figure 34. Openvpn installation
 
-<img width="452" alt="Picture 35" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/1b2c6eb0-3bc0-459e-bc31-8e7fb7f4c623">
-
 After installing VPN, then we need to configure it:
 
 1. **Accessing OpenVPN Web Interface:** Start by navigating to the public IP address of the HOL02-VPN EC2 instance in your web browser. Log in using the provided username "openvpn" and the password displayed in the terminal during the installation process. The URL to access the OpenVPN web interface should be in the format `https://<elastic-ip>:943/admin`.
