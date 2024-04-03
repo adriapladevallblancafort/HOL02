@@ -2,18 +2,30 @@
 
 ## Table of Contents
 
-1. [INTRODUCTION](#introduction)
-2. [CREATION OF KEY PAIRS](#creation-of-key-pairs)
-3. [CREATION OF A VPC](#creation-of-a-vpc)
-4. [SUBNETS](#subnets)
-5. [INTERNET GATEWAY](#internet-gateway)
-6. [ROUTE TABLES](#route-tables)
-7. [EC2 INSTANCES](#ec2-instances)
-8. [S3 BUCKET](#s3-bucket)
-9. [OPENVPN](#openvpn)
-10. [NGINX CONFIGURATION](#nginx-configuration)
-11. [JUPYTER NOTEBOOK](#jupyter-notebook)
-12. [AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
+## 1) [INTRODUCTION](#introduction)
+
+## 2) [CREATION OF KEY PAIRS](#creation-of-key-pairs)
+
+## 3) [CREATION OF A VPC](#creation-of-a-vpc)
+
+## 4) [SUBNETS](#subnets)
+
+## 5) [INTERNET GATEWAY](#internet-gateway)
+
+## 6) [ROUTE TABLES](#route-tables)
+
+## 7) [EC2 INSTANCES](#ec2-instances)
+
+## 8) [S3 BUCKET](#s3-bucket)
+
+## 9) [OPENVPN](#openvpn)
+
+## 10) [NGINX CONFIGURATION](#nginx-configuration)
+
+## 11) [JUPYTER NOTEBOOK](#jupyter-notebook)
+
+## 12) [AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
+
 
 
 
@@ -100,6 +112,7 @@ Through these meticulously executed steps, we ensure the creation of a robust ne
 ## 5) INTERNET GATEWAY
 
 As we move forward in setting up our network, an important part we add is the Internet Gateway. This is like a bridge that helps our EC2 instances connect to the internet. By setting up the Internet Gateway, we're making sure that our instances can easily communicate with external services and access online resources.
+
 <img width="241" alt="Picture 8" src="https://github.com/adriapladevallblancafort/HOL02/assets/155838997/2a53b99b-8a9e-448b-bca5-844fde9cb9f1">
 
 ##### Figure 8. Creation of internet gateway.
