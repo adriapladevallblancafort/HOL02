@@ -2,18 +2,18 @@
 
 ## Table of Contents
 
-[1) INTRODUCTION](#introduction)	
-[2) CREATION OF KEY PAIRS](#creation-of-key-pairs)	
-[3) CREATION OF A VPC](#creation-of-a-vpc)	
-[4) SUBNETS](#subnets)
-[5) INTERNET GATEWAY](#internet-gateway)
-[6) ROUTE TABLES](#route-tables)
-[7) EC2 INSTANCES](#ec2-instances)
-[8) S3 BUCKET](#s3-bucket)
-[9) OPENVPN](#openvpn)
-[10) NGINX CONFIGURATION](#nginx-configuration)
-[11) JUPYTER NOTEBOOK](#jupyter-notebook)
-[12) AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
+1. [INTRODUCTION](#introduction)	
+2. [CREATION OF KEY PAIRS](#creation-of-key-pairs)	
+3. [CREATION OF A VPC](#creation-of-a-vpc)	
+4. [SUBNETS](#subnets)
+5. [INTERNET GATEWAY](#internet-gateway)
+6. [ROUTE TABLES](#route-tables)
+7. [EC2 INSTANCES](#ec2-instances)
+8. [S3 BUCKET](#s3-bucket)
+9. [OPENVPN](#openvpn)
+10. [NGINX CONFIGURATION](#nginx-configuration)
+11. [JUPYTER NOTEBOOK](#jupyter-notebook)
+12. [AUTOMATIC SYNCHRONIZATION WITH CRON](#automatic-synchronization-with-cron)
 
 
 
